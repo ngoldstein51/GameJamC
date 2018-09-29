@@ -1,4 +1,3 @@
-<<<<<<< HEAD:Assets/Scripts/Player/movement.cs
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
