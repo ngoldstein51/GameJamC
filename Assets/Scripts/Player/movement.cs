@@ -18,7 +18,7 @@ public class movement : MonoBehaviour
     private stats stats;
     public Rigidbody2D player;
     private Animator anim;
-    public LayerMask groundLayer;
+    public LayerMask groundLayer, redLayer, blueLayer;
     public BoxCollider2D playerCol;
 
     // Use this for initialization
@@ -80,10 +80,11 @@ public class movement : MonoBehaviour
         {
             if (jumps >= 1)
             {
-                player.velocity = new Vector3(0, 5, 0);
+                player.velocity = new Vector3(0, 9, 0);
                 jumps--;
             }
         }
+        /* This causes issues when swapping colors and fast falling
         // Fast falling
         if (Input.GetKeyDown(controls[3]))
         {
@@ -94,6 +95,7 @@ public class movement : MonoBehaviour
         {
             Physics2D.gravity /= 10;
         }
+        */
         // Set player position to y = 1 for debugging
         if (Input.GetKey("b"))
         {
@@ -145,12 +147,14 @@ public class movement : MonoBehaviour
 
             float startX = transform.position.x - playerWidth + ((playerWidth * 2 / numOfRays) * i);
 
-            Vector2 startVec = new Vector2(startX, transform.position.y);
+            Vector2 startVec = new Vector2(startX, transform.position.y - playerHeight - 0.1f);
             //Debug.DrawLine(startVec, new Vector2(startVec.x, startVec.y - playerHeight - 0.1f));
     
-            RaycastHit2D hit = Physics2D.Raycast(startVec, Vector2.down, playerHeight + 0.1f, groundLayer);
+            RaycastHit2D hitGround = Physics2D.Raycast(startVec, Vector2.down, 0.1f, groundLayer);
+            RaycastHit2D hitRed = Physics2D.Raycast(startVec, Vector2.down, 0.1f, redLayer);
+            RaycastHit2D hitBlue = Physics2D.Raycast(startVec, Vector2.down, 0.1f, blueLayer);
 
-            if (hit.collider)
+            if (hitGround.collider || hitRed.collider || hitBlue.collider)
             {
                 return true;
             }

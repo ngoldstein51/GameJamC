@@ -34,21 +34,21 @@ public class stats : MonoBehaviour
     {
         if (color == "blue")
         {
-            //sr.sprite = sprites[0];
-            
             // Update player color
             playerColor = "blue";
             // Change animator
             anim.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Player/Blue/Blue");
+            // Change layer to blue
+            gameObject.layer = 10;
         }
         else
         {
-            //sr.sprite = sprites[1];
-
             // Update player color
             playerColor = "red";
             // Change animator
             anim.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Player/Red/Red");
+            // Change layer to blue
+            gameObject.layer = 9;
         }
     }
 

@@ -8,26 +8,12 @@ public class interactiveObject : MonoBehaviour {
     public string color;
     public GameObject target;
     public bool myActive;
-    public int points;
+    //public int points;
 
     //game references
     public GameObject player;
     public stats stats;
     public string playerColor;
-
-    /*
-    public interactiveObject(string color,interactiveObject target, bool active, int points)
-    {
-        this.color = color;
-        this.target = target;
-        this.active = active;
-        this.points = points;
-
-        this.player = GameObject.Find("Player");
-        this.stats = player.GetComponent<stats>();
-        this.playerColor = stats.playerColor;
-    }
-    */
 
     protected virtual void Start()
     {
@@ -42,6 +28,6 @@ public class interactiveObject : MonoBehaviour {
 
     public virtual void use()
     {
-        //myActive = !myActive;
+        myActive = !myActive;
     }
 }

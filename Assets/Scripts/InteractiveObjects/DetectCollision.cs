@@ -15,6 +15,7 @@ public class DetectCollision : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        print("we're getting pressed down");
         // if we are a pressure plate
         if (obj.tag == "plate")
         {

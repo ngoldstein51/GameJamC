@@ -14,16 +14,18 @@ public class pressurePlate : interactiveObject {
     protected override void Update()
     {
         base.Update();
+        
         if (steppedOn)
         {
             myActive = playerColor == color;
+            target.GetComponent<door>().changeColor(playerColor);
         }
         else
         {
             myActive = false;
         }
 
-        target.GetComponent<interactiveObject>().myActive = myActive;
+        //target.GetComponent<interactiveObject>().myActive = myActive;
 
     }
 

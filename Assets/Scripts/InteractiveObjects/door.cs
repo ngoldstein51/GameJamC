@@ -9,15 +9,22 @@ public class door : interactiveObject {
     public bool usedPoints;
     public int points;
 
-	protected override void Start () {
+    protected override void Start() {
         base.Start();
         usedPoints = false;
         points = 100;
         anime = GetComponent<Animator>();
-        print("color: " + color);
         if (color == "blue")
         {
             anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Blue/door_blue");
+        }
+        else if (color == "red")
+        {
+            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Blue/door_red");
+        }
+        else if (color == "purple")
+        {
+            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Blue/door_purple");
         }
 	}
 
@@ -31,10 +38,27 @@ public class door : interactiveObject {
 
     public override void use()
     {
-        if (playerColor == color)
+        base.use();
+        //changeColor();
+        print("actually using the real use()");
+    }
+
+    public void changeColor(string playerColor)
+    {
+        color = playerColor;
+        print("color: " + color);
+        if (color == "blue")
         {
-            base.use();
-            print("actually using the real use()");
-        }   
+            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Blue/door_blue");
+        }
+        else if (color == "red")
+        {
+            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Red/door_red");
+        }
+        else if (color == "purple")
+        {
+            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Purple/door_purple");
+        }
+            
     }
 }
