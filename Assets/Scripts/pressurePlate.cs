@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class pressurePlate : interactiveObject {
+    
+	protected override void Start () {
+        base.Start();
+	}
 
-	// Use this for initialization
-	void Start () {
-        this.stats = player.GetComponent<stats>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public override void use()
+    {
+        print("playerColor: " + playerColor + ", our color: " + color);
+        if (playerColor == color)
+        {
+            base.use();
+            print("actually using the real use()");
+        }   
+    }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class interactiveObject : MonoBehaviour {
 
     //local variables
-    public Color color;
-    public interactiveObject target;
+    public string color;
+    public GameObject target;
     public bool active;
     public int points;
 
@@ -15,9 +15,8 @@ public class interactiveObject : MonoBehaviour {
     public stats stats;
     public string playerColor;
 
-    public interactiveObject() { }
-
-    public interactiveObject(Color color,interactiveObject target, bool active, int points)
+    /*
+    public interactiveObject(string color,interactiveObject target, bool active, int points)
     {
         this.color = color;
         this.target = target;
@@ -28,13 +27,20 @@ public class interactiveObject : MonoBehaviour {
         this.stats = player.GetComponent<stats>();
         this.playerColor = stats.playerColor;
     }
+    */
 
-    void Update()
+    protected virtual void Start()
+    {
+        stats = player.GetComponent<stats>();
+        playerColor = stats.playerColor;
+    }
+
+    protected virtual void Update()
     {
         playerColor = stats.playerColor;
     }
 
-    protected virtual void use()
+    public virtual void use()
     {
         active = !active;
     }
