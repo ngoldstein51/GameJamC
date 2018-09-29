@@ -450,6 +450,7 @@ MonoBehaviour:
   pointsBlue: 0
   sr: {fileID: 0}
   sprites: []
+  anim: {fileID: 0}
 --- !u!4 &2077638429
 Transform:
   m_ObjectHideFlags: 0

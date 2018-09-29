@@ -5,42 +5,50 @@ using UnityEngine;
 public class stats : MonoBehaviour
 {
 
-    //player color
     public string playerColor;
-    //ammo
     public int ammoRed;
     public int ammoBlue;
-    //health
     public int health;
-    //points
     public float pointsRed;
     public float pointsBlue;
 
     public SpriteRenderer sr;
     public Sprite[] sprites;
+    public Animator anim;
 
     void Start()
     {
-        sprites = new Sprite[2];
-        sprites[0] = Resources.Load<Sprite>("blueSquare");
-        sprites[1] = Resources.Load<Sprite>("redSquare");
+        //sprites = new Sprite[2];
+        //sprites[0] = Resources.Load<Sprite>("blueSquare");
+        //sprites[1] = Resources.Load<Sprite>("redSquare");
 
+        // Initiate fields
         playerColor = "red";
 
+        // Get references to components
         sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     public void setColor(string color)
     {
         if (color == "blue")
         {
-            sr.sprite = sprites[0];
+            //sr.sprite = sprites[0];
+            
+            // Update player color
             playerColor = "blue";
+            // Change animator
+            anim.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Blue/Blue");
         }
         else
         {
-            sr.sprite = sprites[1];
+            //sr.sprite = sprites[1];
+
+            // Update player color
             playerColor = "red";
+            // Change animator
+            anim.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Red/Red");
         }
     }
 

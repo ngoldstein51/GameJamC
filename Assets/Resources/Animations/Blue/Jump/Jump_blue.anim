@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Up
+  m_Name: Jump_blue
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,9 +19,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 62b7bc29a5db8df4a99b092124e1730b, type: 3}
+      value: {fileID: 21300000, guid: d3435621807965d47bcc1ce41418bdb6, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: ce8963ec4e07eb14b9a62076a1948de1, type: 3}
+      value: {fileID: 21300000, guid: 3ba11e8e6ec0d3647b2c274b11b98eb6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -41,8 +41,8 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 62b7bc29a5db8df4a99b092124e1730b, type: 3}
-    - {fileID: 21300000, guid: ce8963ec4e07eb14b9a62076a1948de1, type: 3}
+    - {fileID: 21300000, guid: d3435621807965d47bcc1ce41418bdb6, type: 3}
+    - {fileID: 21300000, guid: 3ba11e8e6ec0d3647b2c274b11b98eb6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
