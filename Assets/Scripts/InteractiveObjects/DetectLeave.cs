@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectCollision : MonoBehaviour {
+public class DetectLeave : MonoBehaviour {
 
     private interactiveObject obj;
 
@@ -11,12 +11,12 @@ public class DetectCollision : MonoBehaviour {
         obj = GetComponent<interactiveObject>();
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
-        
-        if (col.tag == "Player")
+        // if we are a pressure plate
+        if (obj.tag == "plate" && col.tag == "Player")
         {
-            obj.use();
+            ((pressurePlate)obj).steppedOn = false;
         }
     }
 

@@ -79,11 +79,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 
   target: {fileID: 0}
-  active: 0
+  myActive: 0
   points: 0
   player: {fileID: 0}
   stats: {fileID: 0}
   playerColor: 
+  steppedOn: 0
 --- !u!212 &212060852623171878
 SpriteRenderer:
   m_ObjectHideFlags: 1
