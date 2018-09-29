@@ -15,6 +15,8 @@ public class interactiveObject : MonoBehaviour {
     public stats stats;
     public string playerColor;
 
+    public interactiveObject() { }
+
     public interactiveObject(Color color,interactiveObject target, bool active, int points)
     {
         this.color = color;
@@ -32,7 +34,7 @@ public class interactiveObject : MonoBehaviour {
         playerColor = stats.playerColor;
     }
 
-    void use()
+    protected virtual void use()
     {
         active = !active;
     }
