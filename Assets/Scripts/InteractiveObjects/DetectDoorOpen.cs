@@ -19,8 +19,12 @@ public class DetectDoorOpen : MonoBehaviour {
     
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.tag == "Player" && col.gameObject.GetComponent<stats>().playerColor == doorColor)
+        print("got past the first challenge");
+        if (col.tag == "Player" && col.gameObject.GetComponent<stats>().playerColor == doorColor || col.gameObject.GetComponent<stats>().playerColor == theDoor.color)
         {
+
+            print("got past the second challenge");
+
             // Do the animation
             transform.parent.GetComponent<Animator>().SetBool("open", true);
 

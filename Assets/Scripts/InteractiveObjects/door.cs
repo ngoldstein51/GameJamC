@@ -45,6 +45,7 @@ public class door : interactiveObject {
 
     public void changeColor(string playerColor)
     {
+        
         color = playerColor;
         print("color: " + color);
         if (color == "blue")

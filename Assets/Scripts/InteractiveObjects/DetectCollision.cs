@@ -5,12 +5,12 @@ using UnityEngine;
 public class DetectCollision : MonoBehaviour {
 
     private interactiveObject obj;
-    private GameObject player;
+    //private GameObject player;
 
     void Start()
     {
         obj = GetComponent<interactiveObject>();
-        player = GameObject.Find("Player");
+       // player = GameObject.Find("Player");
     }
 
     void OnTriggerEnter2D(Collider2D col)
