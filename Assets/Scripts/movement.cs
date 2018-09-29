@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class movement : MonoBehaviour
 {
-    private stats stats;
+    //local variables
     public KeyCode[] controls;
     public Dictionary<string, KeyCode[]> keyCodes = new Dictionary<string, KeyCode[]>();
-    public Rigidbody2D player;
-    private Animator anim;
-    public LayerMask groundLayer;
-    public BoxCollider2D playerCol;
-
     public string blue = "blue";
     public string red = "red";
-
     double jumps;
     float speed = 0.1f;
     public Dictionary<string,float> swapTimers = new Dictionary<string, float>();
 
+    //game references
+    private stats stats;
+    public Rigidbody2D player;
+    private Animator anim;
+    public LayerMask groundLayer;
+    public BoxCollider2D playerCol;
 
     // Use this for initialization
     void Start ()
