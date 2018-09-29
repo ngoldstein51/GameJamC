@@ -5,7 +5,7 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     private stats stats;
-    public KeyCode[] controlls;
+    public KeyCode[] controls;
     public Dictionary<string, KeyCode[]> keyCodes = new Dictionary<string, KeyCode[]>();
     public Rigidbody2D player;
     private Animator anim;
@@ -31,16 +31,15 @@ public class movement : MonoBehaviour
 
         keyCodes.Add(red, new KeyCode[] { KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.UpArrow, KeyCode.DownArrow });
         keyCodes.Add(blue,new KeyCode[] { KeyCode.D, KeyCode.A, KeyCode.W, KeyCode.S });
-        controlls = keyCodes[red];
+        controls = keyCodes[red];
         swapTimers.Add(blue,0);
         swapTimers.Add(red, 0);
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        // Reset animations every frame
         resetAnim();
-        print(player.velocity.y);
         
         // Blue swap
         if (Input.GetKeyDown("q") && swapTimers[blue]<=0)
@@ -55,19 +54,27 @@ public class movement : MonoBehaviour
             swapTimers[red] = 3;
         }
         // Right
-        if (Input.GetKey(controlls[0]))
+        if (Input.GetKey(controls[0]))
         {
+            // Move the character
             transform.position = new Vector2(transform.position.x + speed, transform.position.y);
+            // Update the animation parameter
             anim.SetBool("running", true);
+            // Flip the character right
+            if (transform.localScale.x < 0)
+                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
         // Left
-        if (Input.GetKey(controlls[1]))
+        if (Input.GetKey(controls[1]))
         {
             transform.position = new Vector2(transform.position.x - speed, transform.position.y);
             anim.SetBool("running", true);
+            // Flip the character right
+            if (transform.localScale.x > 0)
+                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
         // Jump
-        if (Input.GetKeyDown(controlls[2]))
+        if (Input.GetKeyDown(controls[2]))
         {
             if (jumps >= 1)
             {
@@ -75,25 +82,29 @@ public class movement : MonoBehaviour
                 jumps--;
             }
         }
-        if (Input.GetKeyDown(controlls[3]))
+        // Fast falling
+        if (Input.GetKeyDown(controls[3]))
         {
             Physics2D.gravity *= 10;
         }
-        if (Input.GetKeyUp(controlls[3]))
+        // Reset fast falling
+        if (Input.GetKeyUp(controls[3]))
         {
             Physics2D.gravity /= 10;
         }
-
+        // Set player position to y = 1 for debugging
         if (Input.GetKey("b"))
         {
             transform.position = new Vector2(transform.position.x, 1f);
         }
 
+        // Unsure what this is doing
         if (speed > 0.1f)
             speed -= 0.01f;
 
         if (player.velocity.y == 0)
             jumps = 2;
+
 
         anim.SetBool("grounded", isGrounded());
         anim.SetFloat("Yvelocity", player.velocity.y);
@@ -111,9 +122,9 @@ public class movement : MonoBehaviour
     {
         stats.setColor(color);
         if (color==blue)
-            controlls = keyCodes[blue];
+            controls = keyCodes[blue];
         else
-            controlls = keyCodes[red];
+            controls = keyCodes[red];
     }
 
     public void resetAnim()
@@ -127,15 +138,22 @@ public class movement : MonoBehaviour
 
     public bool isGrounded()
     {
-        RaycastHit2D[] hit = new RaycastHit2D[16];
-        
-        for (int i = 0; i < 16; i++)
+
+        int numOfRays = 5;
+
+        for (float i = 0; i < numOfRays; i += 0.5f)
         {
-            float garbageCalc = (i * (((transform.localScale.x) * (playerCol.size.x)) / 16)) + (-1 * (((transform.localScale.x) * (playerCol.size.x)) / 2));
+            float playerWidth = transform.localScale.x * playerCol.size.x / 2;
+            float playerHeight = transform.localScale.y * playerCol.size.y / 2;
 
-            hit[i] = Physics2D.Raycast(new Vector2(garbageCalc+transform.position.x, transform.position.y), Vector2.down, 4.1f, groundLayer);
+            float startX = transform.position.x - playerWidth + ((playerWidth * 2 / numOfRays) * i);
 
-            if (hit[i].collider)
+            Vector2 startVec = new Vector2(startX, transform.position.y);
+            //Debug.DrawLine(startVec, new Vector2(startVec.x, startVec.y - playerHeight - 0.1f));
+    
+            RaycastHit2D hit = Physics2D.Raycast(startVec, Vector2.down, playerHeight + 0.1f, groundLayer);
+
+            if (hit.collider)
             {
                 return true;
             }
