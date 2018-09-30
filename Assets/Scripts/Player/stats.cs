@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,11 +19,21 @@ public class stats : MonoBehaviour
     public Animator anim;
     public Text red_num;
     public Text blue_num;
+    public Text timerSec;
+    public Text timerMili;
+    public float bomb;
 
     void Update()
     {
         red_num.text = pointsRed.ToString();
         blue_num.text = pointsBlue.ToString();
+    }
+
+    void FixedUpdate()
+    {
+        bomb -= Time.deltaTime;
+        timerSec.text = string.Format("{0:00}",bomb);
+        timerMili.text = Math.Truncate((bomb-(int)bomb)*100).ToString();
     }
 
     void Start()
@@ -37,6 +48,7 @@ public class stats : MonoBehaviour
         // Get references to components
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        bomb = 11;
     }
 
     public void setColor(string color)
