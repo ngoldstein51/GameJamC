@@ -39,10 +39,6 @@ public class stats : MonoBehaviour
 
     void Start()
     {
-        //sprites = new Sprite[2];
-        //sprites[0] = Resources.Load<Sprite>("blueSquare");
-        //sprites[1] = Resources.Load<Sprite>("redSquare");
-
         // Initiate fields
         playerColor = "red";
 
