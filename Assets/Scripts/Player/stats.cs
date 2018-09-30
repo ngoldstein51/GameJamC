@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class stats : MonoBehaviour
 {
-
+    private string red = "red";
+    private string blue = "blue";
     public string playerColor;
     public int ammoRed;
     public int ammoBlue;
@@ -17,6 +19,7 @@ public class stats : MonoBehaviour
     public SpriteRenderer sr;
     public Sprite[] sprites;
     public Animator anim;
+    public movement move;
     public Text red_num;
     public Text blue_num;
     public Text timerSec;
@@ -25,8 +28,34 @@ public class stats : MonoBehaviour
     
     void Update()
     {
-        red_num.text = pointsRed.ToString();
-        blue_num.text = pointsBlue.ToString();
+        red_num.text = Math.Truncate(pointsRed).ToString();
+        blue_num.text = Math.Truncate(pointsBlue).ToString();
+
+        // If the timer runs out
+        if (bomb <= 0 && SceneManager.GetActiveScene().buildIndex > 0)
+        {
+            // TODO: play bomb swap animation?
+
+            // Swap colors
+            if (playerColor == red)
+            {
+                move.setControl(blue);
+            }
+            else
+            {
+                move.setControl(red);
+            }
+            bomb = 10;
+        }
+
+        if (playerColor == red)
+        {
+            pointsRed += 0.01f;
+        }
+        else
+        {
+            pointsBlue += 0.01f;
+        }
 
     }
 
@@ -47,7 +76,9 @@ public class stats : MonoBehaviour
         // Get references to components
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        bomb = 11;
+        bomb = 10;
+
+        move = GetComponent<movement>();
     }
 
     public void setColor(string color)

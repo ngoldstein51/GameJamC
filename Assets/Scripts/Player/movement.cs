@@ -48,14 +48,12 @@ public class movement : MonoBehaviour
         {
             setControl(blue);
             swapTimers[blue] = 3;
-            stats.bomb = 11;
         }
         // Red swap
         if (Input.GetKeyDown("space") && swapTimers[red] <= 0)
         {
             setControl(red);
             swapTimers[red] = 3;
-            stats.bomb = 11;
         }
         // Right
         if (Input.GetKey(controls[0]))
@@ -107,7 +105,7 @@ public class movement : MonoBehaviour
             swapTimers[red] -= Time.deltaTime;
     }
 
-    void setControl(string color)
+    public void setControl(string color)
     {
         stats.setColor(color);
         if (color==blue)
