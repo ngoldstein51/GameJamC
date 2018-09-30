@@ -29,7 +29,7 @@ public class movement : MonoBehaviour
         jumps = 0;
         player = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        speed = 0.075f;
+        speed = 0.05f;
 
         keyCodes.Add(red, new KeyCode[] { KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.UpArrow, KeyCode.DownArrow });
         keyCodes.Add(blue,new KeyCode[] { KeyCode.D, KeyCode.A, KeyCode.W, KeyCode.S });
@@ -84,18 +84,6 @@ public class movement : MonoBehaviour
                 jumps--;
             }
         }
-        /* This causes issues when swapping colors and fast falling
-        // Fast falling
-        if (Input.GetKeyDown(controls[3]))
-        {
-            Physics2D.gravity *= 10;
-        }
-        // Reset fast falling
-        if (Input.GetKeyUp(controls[3]))
-        {
-            Physics2D.gravity /= 10;
-        }
-        */
         // Set player position to y = 1 for debugging
         if (Input.GetKey("b"))
         {

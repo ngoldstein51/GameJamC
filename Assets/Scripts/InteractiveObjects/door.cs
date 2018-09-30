@@ -20,11 +20,11 @@ public class door : interactiveObject {
         }
         else if (color == "red")
         {
-            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Blue/door_red");
+            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Red/door_red");
         }
         else if (color == "purple")
         {
-            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Blue/door_purple");
+            anime.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animations/Door/Purple/door_purple");
         }
 	}
 
