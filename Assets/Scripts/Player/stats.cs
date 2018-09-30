@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class stats : MonoBehaviour
 {
@@ -15,6 +16,14 @@ public class stats : MonoBehaviour
     public SpriteRenderer sr;
     public Sprite[] sprites;
     public Animator anim;
+    public Text red_num;
+    public Text blue_num;
+
+    void Update()
+    {
+        red_num.text = pointsRed.ToString();
+        blue_num.text = pointsBlue.ToString();
+    }
 
     void Start()
     {
