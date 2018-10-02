@@ -24,6 +24,7 @@ public class stats : MonoBehaviour
     public Text blue_num;
     public Text timerSec;
     public Text timerMili;
+    public PersistentStats perStats;
     public float bomb;
     
     void Update()
@@ -32,7 +33,7 @@ public class stats : MonoBehaviour
         blue_num.text = Math.Truncate(pointsBlue).ToString();
 
         // If the timer runs out
-        if (bomb <= 0 && SceneManager.GetActiveScene().buildIndex > 0)
+        if (bomb <= 0 && SceneManager.GetActiveScene().buildIndex > 1)
         {
             // TODO: play bomb swap animation?
 
@@ -62,8 +63,16 @@ public class stats : MonoBehaviour
     void FixedUpdate()
     {
         bomb -= Time.deltaTime;
-        timerSec.text = string.Format("{0:00}",bomb);
-        timerMili.text = Math.Truncate((bomb-(int)bomb)*100).ToString();
+        try
+        {
+            timerSec.text = string.Format("{0:00}", bomb);
+            timerMili.text = Math.Truncate((bomb - (int)bomb) * 100).ToString();
+        }
+        catch
+        {
+
+        }
+        
     }
 
     void Start()
@@ -79,6 +88,11 @@ public class stats : MonoBehaviour
         bomb = 10;
 
         move = GetComponent<movement>();
+
+        perStats = GameObject.Find("PersistentStats").GetComponent<PersistentStats>();
+
+        pointsBlue = perStats.initBluePoints;
+        pointsRed = perStats.initRedPoints;
     }
 
     public void setColor(string color)

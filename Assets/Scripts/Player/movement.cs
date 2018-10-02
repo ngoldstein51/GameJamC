@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class movement : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class movement : MonoBehaviour
     public string red = "red";
     double jumps;
     public float speed;
-    public Dictionary<string,float> swapTimers = new Dictionary<string, float>();
+    public float swapTimer;
 
     //game references
     private stats stats;
@@ -20,6 +21,7 @@ public class movement : MonoBehaviour
     private Animator anim;
     public LayerMask groundLayer, redLayer, blueLayer;
     public BoxCollider2D playerCol;
+    public PersistentStats perStats;
 
     // Use this for initialization
     void Start ()
@@ -34,8 +36,7 @@ public class movement : MonoBehaviour
         keyCodes.Add(red, new KeyCode[] { KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.UpArrow, KeyCode.DownArrow });
         keyCodes.Add(blue,new KeyCode[] { KeyCode.D, KeyCode.A, KeyCode.W, KeyCode.S });
         controls = keyCodes[red];
-        swapTimers.Add(blue,0);
-        swapTimers.Add(red, 0);
+        swapTimer = 3.0f;
     }
     
     void Update()
@@ -43,17 +44,36 @@ public class movement : MonoBehaviour
         // Reset animations every frame
         resetAnim();
         
-        // Blue swap
-        if (Input.GetKeyDown("q") && swapTimers[blue]<=0)
+        // Go to menu
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            setControl(blue);
-            swapTimers[blue] = 3;
+            SceneManager.LoadScene(0);
+        }
+        // Reset level
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            stats.pointsRed = perStats.initRedPoints;
+            stats.pointsBlue = perStats.initBluePoints;
+        }
+
+        // Blue swap
+        if (Input.GetKeyDown("q") && swapTimer<=0)
+        {
+            if (stats.playerColor == red)
+            {
+                setControl(blue);
+                swapTimer = 3;
+            }
         }
         // Red swap
-        if (Input.GetKeyDown("space") && swapTimers[red] <= 0)
+        if (Input.GetKeyDown(KeyCode.RightControl) && swapTimer <= 0)
         {
-            setControl(red);
-            swapTimers[red] = 3;
+            if (stats.playerColor == blue)
+            {
+                setControl(red);
+                swapTimer = 3;
+            }
         }
         // Right
         if (Input.GetKey(controls[0]))
@@ -84,11 +104,6 @@ public class movement : MonoBehaviour
                 jumps--;
             }
         }
-        // Set player position to y = 1 for debugging
-        if (Input.GetKey("b"))
-        {
-            transform.position = new Vector2(transform.position.x, 1f);
-        }
 
         if (player.velocity.y == 0)
             jumps = 2;
@@ -99,10 +114,8 @@ public class movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (swapTimers[blue] > 0)
-            swapTimers[blue] -= Time.deltaTime;
-        if (swapTimers[red] > 0)
-            swapTimers[red] -= Time.deltaTime;
+        if (swapTimer > 0)
+            swapTimer -= Time.deltaTime;
     }
 
     public void setControl(string color)
